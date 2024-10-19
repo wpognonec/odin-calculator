@@ -1,7 +1,7 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 
@@ -10,10 +10,20 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
   flex: 1;
-  padding: 2px;
-  margin: 2px;
-  background: slategray;
+  width: 50px;
+  height: 50px;
+  /* padding: 2px; */
+  /* margin: 2px; */
+  
+}
+
+button {
+  padding: 5px;
+  width: 100%;
+  margin: 5px;
 }
 
 .zero {
@@ -22,4 +32,5 @@
 
 .calculator {
   width: 400px;
+  background: slategray;
 }
