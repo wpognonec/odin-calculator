@@ -1,3 +1,5 @@
+buttons = document.querySelectorAll("button")
+
 function add(a, b) {
   return a + b
 }
@@ -28,3 +30,7 @@ function operate(op1, op2, operator) {
       break;
   }
 }
+
+buttons.forEach(button => {
+  button.addEventListener("click", (e) => console.log(e.target.textContent))
+});
