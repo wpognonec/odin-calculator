@@ -1,0 +1,25 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+.row2, .row3, .row4, .row5, .row6 {
+  display: flex;
+}
+
+.button {
+  flex: 1;
+  padding: 2px;
+  margin: 2px;
+  background: slategray;
+}
+
+.zero {
+  flex-grow: 2;
+}
+
+.calculator {
+  width: 400px;
+}
