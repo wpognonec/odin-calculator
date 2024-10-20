@@ -3,6 +3,7 @@ display = document.querySelector(".row1")
 display.textContent = 0
 
 let op1, op2, operator, result
+let newNum = false
 
 function add(a, b) {
   result = a + b
@@ -32,6 +33,13 @@ function divide(a, b) {
   return result
 }
 
+function mod(a, b) {
+  result = a % b
+  op1 = undefined
+  op2 = undefined
+  return result
+}
+
 function operate(op1, op2, operator) {
   switch (operator) {
     case "+":
@@ -42,6 +50,8 @@ function operate(op1, op2, operator) {
       return multiply(op1, op2)
     case "/":
       return divide(op1, op2)
+    case "%":
+      return mod(op1, op2)
     default:
       break;
   }
@@ -62,34 +72,41 @@ buttons.forEach(button => {
       }
     } else if ("1234567890".includes(e.target.textContent)) {
       let digit = parseInt(e.target.textContent)
-      if (result && !op1) {
-        op1 = result
-      }
-      if (!op1) {
-        op1 = digit
-        display.textContent = op1
-      } else if (!op2 && !operator) {
-        op1 = op1 * 10 + digit
-        display.textContent = op1
-      } else if (!op2 && operator) {
-        op2 = digit
-        display.textContent = op2
+      if (newNum) {
+        display.textContent = digit
+        newNum = false
+      } else if (display.textContent === "0") {
+        display.textContent = digit
       } else {
-        op2 = op2 * 10 + digit
-        display.textContent = op2
+        display.textContent += digit
       }
     } else if ("%/*-+".includes(e.target.textContent)) {
       if (op1 && op2 && operator) {
         result = operate(op1, op2, operator)
-        op1 = result
         display.textContent = result
-      }
-      operator = e.target.textContent
+        operator = e.target.textContent
+        newNum = true
+      } else if (op1 && !operator) {
+        operator = e.target.textContent
+        newNum = true
+      } else if (!op1) {
+        op1 = parseFloat(display.textContent)
+        operator = e.target.textContent
+        newNum = true
+      } else if (!op2) {
+        op2 = parseFloat(display.textContent)
+        result = operate(op1, op2, operator)
+        operator = e.target.textContent
+        display.textContent = result
+        newNum = true
+      } 
+      
     } else if (e.target.textContent === "=") {
+      op2 = parseFloat(display.textContent)
       result = operate(op1, op2, operator)
-      op1 = result
       operator = undefined
       display.textContent = result
+      newNum = true
     }
   })
 });
