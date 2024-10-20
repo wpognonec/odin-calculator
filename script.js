@@ -2,42 +2,37 @@ buttons = document.querySelectorAll("button")
 display = document.querySelector(".row1")
 display.textContent = 0
 
-let op1, op2, operator, result
+let op1, op2, operator
 let newNum = false
 
 function add(a, b) {
-  result = a + b
   op1 = undefined
   op2 = undefined
-  return result
+  return a + b
 }
 
 function subtract(a, b) {
-  result = a - b
   op1 = undefined
   op2 = undefined
-  return result
+  return a - b
 }
 
 function multiply(a, b) {
-  result = a * b
   op1 = undefined
   op2 = undefined
-  return result
+  return a * b
 }
 
 function divide(a, b) {
-  result = a / b
   op1 = undefined
   op2 = undefined
-  return result
+  return a / b
 }
 
 function mod(a, b) {
-  result = a % b
   op1 = undefined
   op2 = undefined
-  return result
+  return a % b
 }
 
 function operate(op1, op2, operator) {
@@ -82,7 +77,7 @@ buttons.forEach(button => {
       }
     } else if ("%/*-+".includes(e.target.textContent)) {
       if (op1 && op2 && operator) {
-        result = operate(op1, op2, operator)
+        let result = operate(op1, op2, operator)
         display.textContent = result
         operator = e.target.textContent
         newNum = true
@@ -95,7 +90,7 @@ buttons.forEach(button => {
         newNum = true
       } else if (!op2) {
         op2 = parseFloat(display.textContent)
-        result = operate(op1, op2, operator)
+        let result = operate(op1, op2, operator)
         operator = e.target.textContent
         display.textContent = result
         newNum = true
@@ -103,10 +98,12 @@ buttons.forEach(button => {
       
     } else if (e.target.textContent === "=") {
       op2 = parseFloat(display.textContent)
-      result = operate(op1, op2, operator)
+      let result = operate(op1, op2, operator)
       operator = undefined
       display.textContent = result
       newNum = true
+    } else if (e.target.textContent === ".") {
+      if (!display.textContent.includes(".")) display.textContent += "."
     }
   })
 });
