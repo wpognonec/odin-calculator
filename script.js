@@ -54,8 +54,13 @@ buttons.forEach(button => {
       op1 = undefined
       op2 = undefined
       operator = undefined
-    }
-    else if ("1234567890".includes(e.target.textContent)) {
+    } else if (e.target.textContent === "+/-") {
+      if (display.textContent[0] !== "-") {
+        display.textContent = "-" + display.textContent
+      } else {
+        display.textContent = display.textContent.slice(1)
+      }
+    } else if ("1234567890".includes(e.target.textContent)) {
       let digit = parseInt(e.target.textContent)
       if (result && !op1) {
         op1 = result
