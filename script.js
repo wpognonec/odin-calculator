@@ -72,12 +72,15 @@ buttons.forEach(button => {
         newNum = false
       } else if (display.textContent === "0") {
         display.textContent = digit
+      } else if (display.textContent === "-0") {
+        display.textContent = "-" + digit  
       } else {
         display.textContent += digit
       }
     } else if ("%/*-+".includes(e.target.textContent)) {
       if (op1 && op2 && operator) {
         let result = operate(op1, op2, operator)
+        op1 = result
         display.textContent = result
         operator = e.target.textContent
         newNum = true
@@ -91,6 +94,7 @@ buttons.forEach(button => {
       } else if (!op2) {
         op2 = parseFloat(display.textContent)
         let result = operate(op1, op2, operator)
+        op1 = result
         operator = e.target.textContent
         display.textContent = result
         newNum = true
@@ -99,6 +103,7 @@ buttons.forEach(button => {
     } else if (e.target.textContent === "=") {
       op2 = parseFloat(display.textContent)
       let result = operate(op1, op2, operator)
+      op1 = result
       operator = undefined
       display.textContent = result
       newNum = true
