@@ -103,7 +103,12 @@ buttons.forEach(button => {
       display.textContent = result
       newNum = true
     } else if (e.target.textContent === ".") {
-      if (!display.textContent.includes(".")) display.textContent += "."
+      if (newNum) {
+        display.textContent = "0."
+        newNum = false
+      } else if (!display.textContent.includes(".")) {
+        display.textContent += "."
+      }
     }
   })
 });
