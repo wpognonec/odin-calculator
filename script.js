@@ -44,6 +44,7 @@ function operate(op1, op2, operator) {
     case "*":
       return multiply(op1, op2)
     case "/":
+      if (op2 === 0) return "NOPE"
       return divide(op1, op2)
     case "%":
       return mod(op1, op2)
@@ -113,13 +114,15 @@ buttons.forEach(button => {
       } 
       setOperator(operator)
     } else if (e.target.textContent === "=") {
-      op2 = parseFloat(display.textContent)
-      let result = operate(op1, op2, operator)
-      op1 = result
-      operator = undefined
-      setOperator(operator)
-      display.textContent = result
-      newNum = true
+      if (op1 && operator) {
+        op2 = parseFloat(display.textContent)
+        let result = operate(op1, op2, operator)
+        op1 = result
+        operator = undefined
+        setOperator(operator)
+        display.textContent = result
+        newNum = true
+      }
     } else if (e.target.textContent === ".") {
       if (newNum) {
         display.textContent = "0."
@@ -127,6 +130,9 @@ buttons.forEach(button => {
       } else if (!display.textContent.includes(".")) {
         display.textContent += "."
       }
+    } else if (e.target.textContent === "DEL") {
+      if (display.textContent.length === 1) display.textContent = 0
+      else if (display.textContent) display.textContent = display.textContent.slice(0,-1)
     }
   })
 });
