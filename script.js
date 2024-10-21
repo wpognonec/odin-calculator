@@ -8,31 +8,31 @@ let newNum = false
 function add(a, b) {
   op1 = undefined
   op2 = undefined
-  return a + b
+  return Math.round((a + b) * 100) / 100
 }
 
 function subtract(a, b) {
   op1 = undefined
   op2 = undefined
-  return a - b
+  return Math.round((a - b) * 100) / 100
 }
 
 function multiply(a, b) {
   op1 = undefined
   op2 = undefined
-  return a * b
+  return Math.round((a * b) * 100) / 100
 }
 
 function divide(a, b) {
   op1 = undefined
   op2 = undefined
-  return a / b
+  return Math.round((a / b) * 100) / 100
 }
 
 function mod(a, b) {
   op1 = undefined
   op2 = undefined
-  return a % b
+  return Math.round((a % b) * 100) / 100
 }
 
 function operate(op1, op2, operator) {
@@ -52,6 +52,17 @@ function operate(op1, op2, operator) {
   }
 }
 
+function setOperator(operator) {
+  operatorButtons = document.querySelectorAll(".operator")
+  operatorButtons.forEach((button) => {
+    if (button.textContent === operator) {
+      button.style.background = "#be9d9d"
+    } else {
+      button.style.background = ""
+    }
+  })
+}
+
 buttons.forEach(button => {
   button.addEventListener("click", (e) => {
     if (e.target.textContent === "AC") {
@@ -59,6 +70,7 @@ buttons.forEach(button => {
       op1 = undefined
       op2 = undefined
       operator = undefined
+      setOperator(operator)
     } else if (e.target.textContent === "+/-") {
       if (display.textContent[0] !== "-") {
         display.textContent = "-" + display.textContent
@@ -99,12 +111,13 @@ buttons.forEach(button => {
         display.textContent = result
         newNum = true
       } 
-      
+      setOperator(operator)
     } else if (e.target.textContent === "=") {
       op2 = parseFloat(display.textContent)
       let result = operate(op1, op2, operator)
       op1 = result
       operator = undefined
+      setOperator(operator)
       display.textContent = result
       newNum = true
     } else if (e.target.textContent === ".") {
